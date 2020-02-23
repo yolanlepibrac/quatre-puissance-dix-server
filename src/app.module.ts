@@ -8,7 +8,7 @@ import { CatsModule } from './mongoose/cats.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb://yolanpibrac:Lasvegasparano1%2521@ds217548.mlab.com:17548/heroku_wwwcrrdp',
+      'mongodb://yolanpibrac:Lasvegasparano1@ds217548.mlab.com:17548/heroku_wwwcrrdp',
     ),
     UsersModule,
     CatsModule,
