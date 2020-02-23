@@ -10,11 +10,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './users.schema';
 import { AuthenticationMiddleware } from './authentication.middleware';
 import { DatabaseModule } from '../database.module';
+import { UsersProviders } from './users.providers';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, ...UsersProviders],
 })
 export class UsersModule {}
 /* export class UsersModule implements NestModule {

@@ -14,10 +14,6 @@ export class GamesService {
     return 'Hello World!';
   }
 
-  async findAll(): Promise<Game[]> {
-    return this.gameModel.find().exec();
-  }
-
   async addGame(createGameDto: CreateGameDto): Promise<Game> {
     const newGame = await new this.gameModel(createGameDto);
     return newGame.save();
