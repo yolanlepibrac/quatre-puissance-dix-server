@@ -10,9 +10,7 @@ import { CreateGameDto } from '../game/create-game.dto';
 export class UserService {
   constructor(
     @Inject('USER_MODEL')
-    @Inject('GAME_MODEL')
     private readonly userModel: Model<User>,
-    private readonly gameModel: Model<Game>,
   ) {}
 
   // add user when register
@@ -25,11 +23,6 @@ export class UserService {
   async getUsersByMail(email): Promise<User> {
     const users = await this.userModel.findOne({ email: email }).exec();
     return users;
-  }
-
-  async getGames(tabOfGames): Promise<Game[]> {
-    const games = await this.gameModel.find({ id: { $in: tabOfGames } }).exec();
-    return games;
   }
 
   async editUser(userID, createUserDTO: CreateUserDto): Promise<User> {

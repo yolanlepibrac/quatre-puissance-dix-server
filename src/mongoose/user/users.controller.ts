@@ -41,8 +41,9 @@ export class UserController {
       throw new NotFoundException('User does not exist!');
     }
     //get all games of user
-    const games = await this.userService.getGames(user.games);
-    return res.status(HttpStatus.OK).json({ user: user, games: games });
+    //const games = await this.userService.getGames(user.games);
+    return res.redirect('/games/getUserGames', user);
+    //res.status(HttpStatus.OK).json({ user: user, games: games });
   }
 
   // Fetch a particular user using ID

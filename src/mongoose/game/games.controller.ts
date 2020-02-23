@@ -15,7 +15,7 @@ import { GamesService } from './games.service';
 import { Request } from 'express';
 import { CreateGameDto } from './create-game.dto';
 
-@Controller('game')
+@Controller('games')
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
 
@@ -30,6 +30,15 @@ export class GamesController {
     return res.status(HttpStatus.OK).json({
       message: 'Game has been submitted successfully!',
       game: newGame,
+    });
+  }
+
+  @Post('/getUserGames')
+  async getuserGames(@Res() res, @Body() user) {
+    const games = await this.gamesService.getGames(user.games);
+    return res.status(HttpStatus.OK).json({
+      games: games,
+      user: user,
     });
   }
 
