@@ -35,6 +35,7 @@ export class UserController {
     return res.status(HttpStatus.OK).json(newUser);
   }
 
+  //login of user
   @Post('/login')
   async getUser(@Res() res, @Body() body) {
     console.log(body);

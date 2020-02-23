@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { UserController } from './users.controller';
 import { UserService } from './users.service';
+import { GamesService } from '../game/games.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './users.schema';
 import { AuthenticationMiddleware } from './authentication.middleware';
@@ -15,7 +16,7 @@ import { UsersProviders } from './users.providers';
 @Module({
   imports: [DatabaseModule],
   controllers: [UserController],
-  providers: [UserService, ...UsersProviders],
+  providers: [UserService, ...UsersProviders, GamesService],
 })
 export class UsersModule {}
 /* export class UsersModule implements NestModule {

@@ -3,6 +3,8 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './users.interface';
 import { CreateUserDto } from './/create-users.dto';
+import { Game } from '../game/games.interface';
+import { CreateGameDto } from '../game/create-game.dto';
 
 @Injectable()
 export class UserService {
