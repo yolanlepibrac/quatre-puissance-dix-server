@@ -23,6 +23,11 @@ export class UserService {
     return users;
   }
 
+  async getUsersByMail(email): Promise<User> {
+    const users = await this.userModel.findOne({ email: email }).exec();
+    return users;
+  }
+
   async editUser(userID, createUserDTO: CreateUserDto): Promise<User> {
     const editedUser = await this.userModel.findByIdAndUpdate(
       userID,
