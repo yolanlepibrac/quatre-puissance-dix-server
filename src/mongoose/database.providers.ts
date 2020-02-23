@@ -5,7 +5,7 @@ export const databaseProviders = [
     provide: 'DATABASE_CONNECTION',
     useFactory: (): Promise<typeof mongoose> =>
       mongoose.connect(
-        'mongodb://yolanpibrac:Lasvegasparano1%2521@ds217548.mlab.com:17548/heroku_wwwcrrdp',
+        'mongodb://yolanpibrac:Lasvegasparano1@ds217548.mlab.com:17548/heroku_wwwcrrdp',
       ),
   },
 ];
