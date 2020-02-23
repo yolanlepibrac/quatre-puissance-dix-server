@@ -12,11 +12,12 @@ import { UserSchema } from './users.schema';
 import { AuthenticationMiddleware } from './authentication.middleware';
 import { DatabaseModule } from '../database.module';
 import { UsersProviders } from './users.providers';
+import { GamesProviders } from '../game/games.providers';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [UserController],
-  providers: [UserService, ...UsersProviders, GamesService],
+  providers: [UserService, ...UsersProviders, GamesService, ...GamesProviders],
 })
 export class UsersModule {}
 /* export class UsersModule implements NestModule {
