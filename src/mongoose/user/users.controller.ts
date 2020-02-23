@@ -29,7 +29,7 @@ export class UserController {
     });
   }
 
-  @Get('/login')
+  @Post('/login')
   async getUser(@Res() res, @Body() body) {
     console.log(body);
     const user = await this.userService.getUsersByMail(body.email);
