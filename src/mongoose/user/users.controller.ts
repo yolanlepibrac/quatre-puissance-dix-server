@@ -40,8 +40,6 @@ export class UserController {
     if (!user) {
       throw new NotFoundException('User does not exist!');
     }
-    //get all games of user
-    //const games = await this.userService.getGames(user.games);
     res.status(HttpStatus.OK).json({ user: user });
   }
 
