@@ -12,6 +12,7 @@ import {
   Put,
   Query,
   Delete,
+  NotAcceptableException,
 } from '@nestjs/common';
 import { CreateUserDto } from './create-users.dto';
 
@@ -22,11 +23,12 @@ export class UserController {
   // Submit a user
   @Post('/register')
   async addUser(@Res() res, @Body() CreateUserDTO: CreateUserDto) {
+    const user = await this.userService.getUsersByMail(CreateUserDTO.email);
+    if (user) {
+      throw new NotAcceptableException('User does already exist!');
+    }
     const newUser = await this.userService.addUser(CreateUserDTO);
-    return res.status(HttpStatus.OK).json({
-      message: 'User has been submitted successfully!',
-      user: newUser,
-    });
+    return res.status(HttpStatus.OK).json(newUser);
   }
 
   @Post('/login')
