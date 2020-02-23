@@ -3,9 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
+import { CatsModule } from './mongoose/cats.module';
 
 @Module({
-  imports: [MongooseModule.forRoot('mongodb://localhost/nest'), UsersModule],
+  imports: [
+    MongooseModule.forRoot(
+      'mongodb://yolanpibrac:Lasvegasparano1%2521@ds217548.mlab.com:17548/heroku_wwwcrrdp',
+    ),
+    UsersModule,
+    CatsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
