@@ -7,19 +7,43 @@ import { CreateGameDto } from './create-game.dto';
 export class GamesService {
   constructor(
     @Inject('GAME_MODEL')
-    private readonly userModel: Model<Game>,
+    private readonly gameModel: Model<Game>,
   ) {}
-
-  async create(createCatDto: CreateGameDto): Promise<Game> {
-    const createdCat = new this.userModel(createCatDto);
-    return createdCat.save();
-  }
-
-  async findAll(): Promise<Game[]> {
-    return this.userModel.find().exec();
-  }
 
   getHello(): string {
     return 'Hello World!';
+  }
+
+  async findAll(): Promise<Game[]> {
+    return this.gameModel.find().exec();
+  }
+
+  async addGame(createGameDto: CreateGameDto): Promise<Game> {
+    const newUser = await new this.gameModel(createGameDto);
+    return newUser.save();
+  }
+
+  async getGame(gameID): Promise<Game> {
+    const game = await this.gameModel.findById(gameID).exec();
+    return game;
+  }
+
+  async getAllGames(): Promise<Game[]> {
+    const games = await this.gameModel.find().exec();
+    return games;
+  }
+
+  async editGame(gameID, createGameDto: CreateGameDto): Promise<Game> {
+    const editedGame = await this.gameModel.findByIdAndUpdate(
+      gameID,
+      createGameDto,
+      { new: true },
+    );
+    return editedGame;
+  }
+
+  async deleteGame(gameID): Promise<any> {
+    const deletedUGame = await this.gameModel.findByIdAndRemove(gameID);
+    return deletedUGame;
   }
 }
