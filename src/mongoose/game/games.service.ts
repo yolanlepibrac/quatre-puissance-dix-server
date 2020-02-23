@@ -24,6 +24,11 @@ export class GamesService {
     return game;
   }
 
+  async getGames(tabOfGames): Promise<Game[]> {
+    const games = await this.gameModel.find({ id: { $in: tabOfGames } }).exec();
+    return games;
+  }
+
   async getAllGames(): Promise<Game[]> {
     const games = await this.gameModel.find().exec();
     return games;

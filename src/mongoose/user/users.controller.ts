@@ -1,5 +1,6 @@
 // users.controller.ts
 import { UserService } from './users.service';
+import { GamesService } from '../game/games.service';
 import {
   Controller,
   Get,
@@ -18,7 +19,10 @@ import { CreateUserDto } from './create-users.dto';
 
 @Controller('users')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private gamesService: GamesService,
+  ) {}
 
   // Submit a user
   @Post('/register')
@@ -38,7 +42,9 @@ export class UserController {
     if (!user) {
       throw new NotFoundException('User does not exist!');
     }
-    return res.status(HttpStatus.OK).json(user);
+    //get all games of user
+    const games = await this.gamesService.getGames(user.games);
+    return res.status(HttpStatus.OK).json({ user: user, games: games });
   }
 
   // Fetch a particular user using ID
