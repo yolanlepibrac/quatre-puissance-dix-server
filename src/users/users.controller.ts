@@ -14,7 +14,6 @@ import {
   Delete,
 } from '@nestjs/common';
 import { CreateUserDTO } from '../mongoose/create-users.dto';
-import { ValidateObjectId } from '../pipes/validate-object-id.pipes';
 
 @Controller('users')
 export class UserController {
@@ -32,13 +31,13 @@ export class UserController {
 
   // Fetch a particular user using ID
   @Get()
-  create(): string {
-    return 'return nothing';
+  create(@Res() res): string {
+    return res.status(HttpStatus.OK).json({ users: 'one' });
   }
 
   // Fetch a particular user using ID
   @Get('user/:userID')
-  async getUser(@Res() res, @Param('userID', new ValidateObjectId()) userID) {
+  async getUser(@Res() res, @Param('userID') userID) {
     const user = await this.userService.getUser(userID);
     if (!user) {
       throw new NotFoundException('User does not exist!');
@@ -56,7 +55,7 @@ export class UserController {
   @Put('/edit')
   async editUser(
     @Res() res,
-    @Query('userID', new ValidateObjectId()) userID,
+    @Query('userID') userID,
     @Body() createUserDTO: CreateUserDTO,
   ) {
     const editedUser = await this.userService.editUser(userID, createUserDTO);
@@ -70,10 +69,7 @@ export class UserController {
   }
   // Delete a user using ID
   @Delete('/delete')
-  async deleteUser(
-    @Res() res,
-    @Query('userID', new ValidateObjectId()) userID,
-  ) {
+  async deleteUser(@Res() res, @Query('userID') userID) {
     const deletedUser = await this.userService.deleteUser(userID);
     if (!deletedUser) {
       throw new NotFoundException('User does not exist!');
