@@ -31,7 +31,7 @@ export class UserController {
 
   @Get('/login')
   async getUser(@Res() res, @Body() body) {
-    console.log(body.email);
+    console.log(body);
     const user = await this.userService.getUsersByMail(body.email);
     if (!user) {
       throw new NotFoundException('User does not exist!');
