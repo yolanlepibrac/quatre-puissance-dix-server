@@ -26,10 +26,10 @@ export class GamesController {
 
   @Post('/new')
   async addGame(@Res() res, @Body() CreateGameDto: CreateGameDto) {
-    const newUser = await this.gamesService.addGame(CreateGameDto);
+    const newGame = await this.gamesService.addGame(CreateGameDto);
     return res.status(HttpStatus.OK).json({
       message: 'User has been submitted successfully!',
-      user: newUser,
+      game: newGame,
     });
   }
 

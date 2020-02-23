@@ -19,8 +19,8 @@ export class GamesService {
   }
 
   async addGame(createGameDto: CreateGameDto): Promise<Game> {
-    const newUser = await new this.gameModel(createGameDto);
-    return newUser.save();
+    const newGame = await new this.gameModel(createGameDto);
+    return newGame.save();
   }
 
   async getGame(gameID): Promise<Game> {
