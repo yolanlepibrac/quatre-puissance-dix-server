@@ -42,8 +42,7 @@ export class UserController {
     }
     //get all games of user
     //const games = await this.userService.getGames(user.games);
-    return res.redirect('/games/getUserGames', user);
-    //res.status(HttpStatus.OK).json({ user: user, games: games });
+    res.status(HttpStatus.OK).json({ user: user });
   }
 
   // Fetch a particular user using ID
