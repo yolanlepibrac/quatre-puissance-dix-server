@@ -7,15 +7,17 @@ import {
 import { UserController } from './users.controller';
 import { UserService } from './users.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from '../mongoose/users.schema';
+import { UserSchema } from './users.schema';
 import { AuthenticationMiddleware } from './authentication.middleware';
+import { DatabaseModule } from '../database.module';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
+  imports: [DatabaseModule],
   controllers: [UserController],
   providers: [UserService],
 })
-export class UsersModule implements NestModule {
+export class UsersModule {}
+/* export class UsersModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
     consumer
       .apply(AuthenticationMiddleware)
@@ -25,4 +27,4 @@ export class UsersModule implements NestModule {
         { method: RequestMethod.DELETE, path: '/blog/delete' },
       );
   }
-}
+} */

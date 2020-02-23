@@ -13,7 +13,7 @@ import {
   Query,
   Delete,
 } from '@nestjs/common';
-import { CreateUserDTO } from '../mongoose/create-users.dto';
+import { CreateUserDto } from './create-users.dto';
 
 @Controller('users')
 export class UserController {
@@ -21,7 +21,7 @@ export class UserController {
 
   // Submit a user
   @Post('/user')
-  async addUser(@Res() res, @Body() CreateUserDTO: CreateUserDTO) {
+  async addUser(@Res() res, @Body() CreateUserDTO: CreateUserDto) {
     const newUser = await this.userService.addUser(CreateUserDTO);
     return res.status(HttpStatus.OK).json({
       message: 'User has been submitted successfully!',
@@ -56,7 +56,7 @@ export class UserController {
   async editUser(
     @Res() res,
     @Query('userID') userID,
-    @Body() createUserDTO: CreateUserDTO,
+    @Body() createUserDTO: CreateUserDto,
   ) {
     const editedUser = await this.userService.editUser(userID, createUserDTO);
     if (!editedUser) {
