@@ -20,7 +20,7 @@ export class UserController {
   constructor(private userService: UserService) {}
 
   // Submit a user
-  @Post('/user')
+  @Post('/register')
   async addUser(@Res() res, @Body() CreateUserDTO: CreateUserDto) {
     const newUser = await this.userService.addUser(CreateUserDTO);
     return res.status(HttpStatus.OK).json({
@@ -29,20 +29,19 @@ export class UserController {
     });
   }
 
-  // Fetch a particular user using ID
-  @Get()
-  create(@Res() res): string {
-    return res.status(HttpStatus.OK).json({ users: 'one' });
-  }
-
-  // Fetch a particular user using ID
-  @Get('user/:userID')
+  @Get('/login')
   async getUser(@Res() res, @Param('userID') userID) {
     const user = await this.userService.getUser(userID);
     if (!user) {
       throw new NotFoundException('User does not exist!');
     }
     return res.status(HttpStatus.OK).json(user);
+  }
+
+  // Fetch a particular user using ID
+  @Get()
+  create(@Res() res): string {
+    return res.status(HttpStatus.OK).json({ users: 'one' });
   }
 
   // Fetch all users
