@@ -19,7 +19,7 @@ import { GamesProviders } from '../game/games.providers';
   controllers: [UserController],
   providers: [UserService, ...UsersProviders, GamesService, ...GamesProviders],
 })
-export class UsersModule {}
+export class UserModule {}
 /* export class UsersModule implements NestModule {
   configure(consumer: MiddlewareConsumer): MiddlewareConsumer | void {
     consumer
