@@ -35,7 +35,9 @@ export class GamesController {
 
   @Post('/getUserGames')
   async getuserGames(@Res() res, @Body() games) {
+    console.log(games);
     const mygames = await this.gamesService.getGames(games);
+    console.log(mygames);
     return res.status(HttpStatus.OK).json({
       games: mygames,
     });
