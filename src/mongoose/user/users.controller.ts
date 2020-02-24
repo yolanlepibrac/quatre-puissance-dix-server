@@ -35,8 +35,19 @@ export class UserController {
   //login of user
   @Post('/login')
   async getUser(@Res() res, @Body() body) {
-    console.log(body);
     const user = await this.userService.getUsersByMail(body.email);
+    if (!user) {
+      throw new NotFoundException('User does not exist!');
+    }
+    res.status(HttpStatus.OK).json({ user: user });
+  }
+
+  //add new game to user
+  @Post('/setNewGame')
+  async setUserGame(@Res() res, @Body() body) {
+    console.log(body);
+    const user = await this.userService.setUserGame(body.email, body.id);
+    console.log(user);
     if (!user) {
       throw new NotFoundException('User does not exist!');
     }

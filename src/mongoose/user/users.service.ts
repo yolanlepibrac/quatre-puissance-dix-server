@@ -5,6 +5,7 @@ import { User } from './users.interface';
 import { CreateUserDto } from './/create-users.dto';
 import { Game } from '../game/games.interface';
 import { CreateGameDto } from '../game/create-game.dto';
+import { GamesController } from '../game/games.controller';
 
 @Injectable()
 export class UserService {
@@ -23,6 +24,16 @@ export class UserService {
   async getUsersByMail(email): Promise<User> {
     const users = await this.userModel.findOne({ email: email }).exec();
     return users;
+  }
+
+  async setUserGame(email, id): Promise<User> {
+    const user = await this.userModel.findOne({ email: email }).exec();
+    if (user) {
+      user.games.push(id);
+      return user.save();
+    }
+    /* const users = await this.userModel.findOneAndUpdate({ email: email }, {games : Gamespush(id)}).exec();
+    return users; */
   }
 
   async editUser(userID, createUserDTO: CreateUserDto): Promise<User> {
