@@ -6,24 +6,47 @@ import { CreateUserDto } from './/create-users.dto';
 import { Game } from '../game/games.interface';
 import { CreateGameDto } from '../game/create-game.dto';
 import { GamesController } from '../game/games.controller';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
     @Inject('USER_MODEL')
     private readonly userModel: Model<User>,
+    private readonly jwtService: JwtService,
   ) {}
+
+  createToken(email: string, password: string) {
+    const token = this.jwtService.sign({ email: email, password: password });
+    return token;
+  }
 
   // add user when register
   async addUser(CreateUserDTO: CreateUserDto): Promise<User> {
+    let token = this.createToken(CreateUserDTO.email, CreateUserDTO.password);
+    CreateUserDTO.password = token;
+    console.log(CreateUserDTO.password);
     const newUser = await new this.userModel(CreateUserDTO);
     return newUser.save();
   }
 
   // get user when login
-  async getUsersByMail(email): Promise<User> {
-    const users = await this.userModel.findOne({ email: email }).exec();
-    return users;
+  async getUserByMail(email): Promise<User> {
+    const user = await this.userModel.findOne({ email: email }).exec();
+    return user;
+  }
+
+  async getUserByMailAndVerify(email, password): Promise<User> {
+    const user = await this.userModel.findOne({ email: email }).exec();
+    const token = this.jwtService.decode(user.password)['password'];
+    console.log(password);
+    console.log(token);
+    if (password === token) {
+      console.log('connection ok');
+      return user;
+    } else {
+      return null;
+    }
   }
 
   async setUserGame(email, id): Promise<User> {

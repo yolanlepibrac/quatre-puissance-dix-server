@@ -24,7 +24,7 @@ export class UserController {
   // Submit a user
   @Post('/register')
   async addUser(@Res() res, @Body() CreateUserDTO: CreateUserDto) {
-    const user = await this.userService.getUsersByMail(CreateUserDTO.email);
+    const user = await this.userService.getUserByMail(CreateUserDTO.email);
     if (user) {
       throw new NotAcceptableException('User does already exist!');
     }
@@ -35,7 +35,10 @@ export class UserController {
   //login of user
   @Post('/login')
   async getUser(@Res() res, @Body() body) {
-    const user = await this.userService.getUsersByMail(body.email);
+    const user = await this.userService.getUserByMailAndVerify(
+      body.email,
+      body.password,
+    );
     if (!user) {
       throw new NotFoundException('User does not exist!');
     }

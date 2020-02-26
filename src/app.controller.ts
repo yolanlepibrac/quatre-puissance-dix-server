@@ -23,11 +23,11 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
 export class AppController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
+  /* @UseGuards(LocalAuthGuard) */
   @Post('auth/login')
-  async login(@Request() req) {
-    console.log('user :' + req.user.username);
-    return this.authService.login(req.user);
+  async login(@Res() res, @Body() body) {
+    console.log('user :' + body.email);
+    return this.authService.login(body);
   }
 
   @UseGuards(JwtAuthGuard)

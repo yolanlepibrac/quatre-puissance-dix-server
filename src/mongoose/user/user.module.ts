@@ -13,11 +13,26 @@ import { AuthenticationMiddleware } from './authentication.middleware';
 import { DatabaseModule } from '../database.module';
 import { UsersProviders } from './users.providers';
 import { GamesProviders } from '../game/games.providers';
+import { JwtStrategy } from '../../auth/jwt.strategy';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from '../../auth/constants';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    DatabaseModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '60s' },
+    }),
+  ],
   controllers: [UserController],
-  providers: [UserService, ...UsersProviders, GamesService, ...GamesProviders],
+  providers: [
+    UserService,
+    ...UsersProviders,
+    GamesService,
+    ...GamesProviders,
+    JwtStrategy,
+  ],
 })
 export class UserModule {}
 /* export class UsersModule implements NestModule {
