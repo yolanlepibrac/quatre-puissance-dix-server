@@ -27,6 +27,7 @@ export class AuthService {
 
   async register(user: any) {
     let token = this.createToken(user.email, user.password);
+    user.token = token;
   }
 
   async login(user: any) {
@@ -35,7 +36,7 @@ export class AuthService {
     console.log(password);
     console.log(user.password);
     if (password === user.password) {
-      console.log('connectin ok');
+      console.log('connection ok');
       return userObject;
     }
     /* const payload = { email: user.email, sub: user.userId };

@@ -13,9 +13,9 @@ import { AuthenticationMiddleware } from './authentication.middleware';
 import { DatabaseModule } from '../database.module';
 import { UsersProviders } from './users.providers';
 import { GamesProviders } from '../game/games.providers';
-import { JwtStrategy } from '../../auth/jwt.strategy';
+import { JwtStrategy } from './jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from '../../auth/constants';
+import { jwtConstants } from './constants';
 
 @Module({
   imports: [
