@@ -29,7 +29,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('msgToServer')
-  async handleMessage(client: Socket, payload: string) {
+  async handleMessage(client: Socket, payload: any) {
     console.log(payload);
     this.server.emit('msgToClient', payload);
   }
