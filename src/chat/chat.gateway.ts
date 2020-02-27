@@ -5,10 +5,11 @@ import {
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
+import { Socket, Server } from 'socket.io';
 
 @WebSocketGateway()
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  @WebSocketServer() server;
+  @WebSocketServer() server: Server;
   users: number = 0;
 
   async handleConnection() {
@@ -27,8 +28,9 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.emit('users', this.users);
   }
 
-  @SubscribeMessage('chat')
-  async onChat(client, message) {
-    client.broadcast.emit('chat', message);
+  @SubscribeMessage('msgToServer')
+  async handleMessage(client: Socket, payload: string) {
+    console.log(payload);
+    this.server.emit('msgToClient', payload);
   }
 }
