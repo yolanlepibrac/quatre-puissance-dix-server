@@ -4,11 +4,10 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './mongoose/user/user.module';
 import { GamesModule } from './mongoose/game/games.module';
-import { ChatModule } from './chat/chat.module';
 import { ChatGateway } from './chat/chat.gateway';
 
 @Module({
-  imports: [UserModule, GamesModule, ChatModule],
+  imports: [UserModule, GamesModule],
   controllers: [AppController],
   providers: [AppService, ChatGateway],
 })
