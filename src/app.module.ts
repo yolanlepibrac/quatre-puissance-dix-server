@@ -4,17 +4,12 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './mongoose/user/user.module';
 import { GamesModule } from './mongoose/game/games.module';
+import { ChatModule } from './chat/chat.module';
+import { ChatGateway } from './chat/chat.gateway';
 
 @Module({
-  imports: [
-    /* MongooseModule.forRoot(
-      'mongodb://yolanpibrac:Lasvegasparano1@ds217548.mlab.com:17548/heroku_wwwcrrdp',
-    ),
-    */
-    UserModule,
-    GamesModule,
-  ],
+  imports: [UserModule, GamesModule, ChatModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ChatGateway],
 })
 export class AppModule {}
