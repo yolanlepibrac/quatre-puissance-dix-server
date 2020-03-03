@@ -29,19 +29,28 @@ export class GamesService {
     return games;
   }
 
+  async updateGame(game): Promise<Game> {
+    const newGame = await this.gameModel.findOneAndUpdate(
+      { id: game.id },
+      { game },
+      { new: true },
+    );
+    return newGame;
+  }
+
   async getAllGames(): Promise<Game[]> {
     const games = await this.gameModel.find().exec();
     return games;
   }
 
-  async editGame(gameID, createGameDto: CreateGameDto): Promise<Game> {
+  /* async editGame(gameID, createGameDto: CreateGameDto): Promise<Game> {
     const editedGame = await this.gameModel.findByIdAndUpdate(
       gameID,
       createGameDto,
       { new: true },
     );
     return editedGame;
-  }
+  } */
 
   async deleteGame(gameID): Promise<any> {
     const deletedUGame = await this.gameModel.findByIdAndRemove(gameID);

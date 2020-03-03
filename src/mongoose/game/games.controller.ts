@@ -43,6 +43,16 @@ export class GamesController {
     });
   }
 
+  @Post('/update')
+  async updateGame(@Res() res, @Body() body) {
+    console.log(body.game);
+    const newGame = await this.gamesService.updateGame(body.game);
+    console.log(newGame);
+    return res.status(HttpStatus.OK).json({
+      game: newGame,
+    });
+  }
+
   @Get()
   getHello(): string {
     return this.gamesService.getHello();
