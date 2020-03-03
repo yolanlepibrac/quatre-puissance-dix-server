@@ -43,7 +43,7 @@ export class GamesController {
     });
   }
 
-  @Post('/update')
+  @Post('/updateGame')
   async updateGame(@Res() res, @Body() body) {
     console.log(body.game);
     const newGame = await this.gamesService.updateGame(body.game);
