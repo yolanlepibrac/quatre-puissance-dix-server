@@ -32,7 +32,12 @@ export class GamesService {
   async updateGame(game): Promise<Game> {
     const newGame = await this.gameModel.findOneAndUpdate(
       { id: game.id },
-      { game },
+      {
+        vectors1: game.vectors1,
+        vectors2: game.vectors2,
+        player1ToPlay: game.player1ToPlay,
+        finish: game.finish,
+      },
       { new: true },
     );
     return newGame;
