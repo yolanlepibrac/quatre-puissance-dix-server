@@ -7,7 +7,10 @@ import {
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 
-@WebSocketGateway()
+import { Catch, ArgumentsHost } from '@nestjs/common';
+import { BaseWsExceptionFilter } from '@nestjs/websockets';
+
+@WebSocketGateway({ port: 9995, transports: ['websocket'] })
 export class ChatGateway {
   @WebSocketServer() server: Server;
   //users: number = 0;
@@ -30,7 +33,7 @@ export class ChatGateway {
 
   @SubscribeMessage('msgToServer')
   async handleMessage(client: Socket, payload: any) {
-    this.server.emit(payload.email1, payload);
-    this.server.emit(payload.email2, payload);
+    this.server.send(payload.email1, payload);
+    this.server.send(payload.email2, payload);
   }
 }
