@@ -8,11 +8,11 @@ import {
 import { Socket, Server } from 'socket.io';
 
 @WebSocketGateway({ pingTimeout: 6000 })
-export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class ChatGateway {
   @WebSocketServer() server: Server;
   users: number = 0;
 
-  async handleConnection() {
+  /* async handleConnection() {
     // A client has connected
     this.users++;
 
@@ -26,7 +26,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     // Notify connected clients of current users
     this.server.emit('users', this.users);
-  }
+  } */
 
   @SubscribeMessage('msgToServer')
   async handleMessage(client: Socket, payload: any) {
