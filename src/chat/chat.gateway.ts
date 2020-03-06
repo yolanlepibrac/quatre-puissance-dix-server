@@ -33,7 +33,7 @@ export class ChatGateway {
 
   @SubscribeMessage('msgToServer')
   async handleMessage(client: Socket, payload: any) {
-    //this.server.emit("msg", payload);
-    this.server.emit(payload.email2, payload);
+    this.server.emit('msg', payload);
+    //this.server.emit(payload.email2, payload);
   }
 }
