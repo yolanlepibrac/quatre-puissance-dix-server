@@ -7,10 +7,10 @@ import {
 } from '@nestjs/websockets';
 import { Socket, Server } from 'socket.io';
 
-@WebSocketGateway({ pingTimeout: 6000 })
+@WebSocketGateway({ transports: ['websocket'] })
 export class ChatGateway {
   @WebSocketServer() server: Server;
-  users: number = 0;
+  //users: number = 0;
 
   /* async handleConnection() {
     // A client has connected
