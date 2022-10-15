@@ -19,7 +19,6 @@ import { CreateUserDto } from './schemas/create-users.dto';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  // Submit a user
   @Post('/register')
   async addUser(@Res() res, @Body() CreateUserDTO: CreateUserDto) {
     const user = await this.userService.getUserByMail(CreateUserDTO.email);
@@ -30,7 +29,6 @@ export class UserController {
     return res.status(HttpStatus.OK).json(newUser);
   }
 
-  //login of user
   @Post('/login')
   async getUser(@Res() res, @Body() body) {
     const user = await this.userService.getUserByMailAndVerify(
@@ -43,22 +41,13 @@ export class UserController {
     res.status(HttpStatus.OK).json({ user: user });
   }
 
-  //add new game to user
   @Post('/setNewGame')
   async setUserGame(@Res() res, @Body() body) {
-    console.log(body);
     const user = await this.userService.setUserGame(body.email, body.id);
-    console.log(user);
     if (!user) {
       throw new NotFoundException('User does not exist!');
     }
     res.status(HttpStatus.OK).json({ user: user });
-  }
-
-  // Fetch a particular user using ID
-  @Get()
-  create(@Res() res): string {
-    return res.status(HttpStatus.OK).json({ users: 'one' });
   }
 
   // Fetch all users
@@ -83,7 +72,7 @@ export class UserController {
       user: editedUser,
     });
   }
-  // Delete a user using ID
+
   @Delete('/delete')
   async deleteUser(@Res() res, @Query('userID') userID) {
     const deletedUser = await this.userService.deleteUser(userID);

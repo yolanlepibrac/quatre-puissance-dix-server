@@ -17,7 +17,6 @@ export class UserService {
     return token;
   }
 
-  // add user when register
   async addUser(CreateUserDTO: CreateUserDto): Promise<User> {
     const token = this.createToken(CreateUserDTO.email, CreateUserDTO.password);
     CreateUserDTO.password = token;
@@ -25,8 +24,6 @@ export class UserService {
     const newUser = await new this.userModel(CreateUserDTO);
     return newUser.save();
   }
-
-  // get user when login
 
   async getUserByMail(email): Promise<User> {
     return this.userModel.findOne({ email: email }).exec();
@@ -45,14 +42,12 @@ export class UserService {
     }
   }
 
-  async setUserGame(email, id): Promise<User> {
+  async setUserGame(email: string, id: string): Promise<User> {
     const user = await this.userModel.findOne({ email: email }).exec();
     if (user) {
       user.games.push(id);
       return user.save();
     }
-    /* const users = await this.userModel.findOneAndUpdate({ email: email }, {games : Gamespush(id)}).exec();
-    return users; */
   }
 
   async editUser(userID, createUserDTO: CreateUserDto): Promise<User> {
