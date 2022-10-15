@@ -1,12 +1,10 @@
 // users.controller.ts
 import { UserService } from './users.service';
-import { GamesService } from '../game/games.service';
 import {
   Controller,
   Get,
   Res,
   HttpStatus,
-  Param,
   NotFoundException,
   Post,
   Body,
@@ -15,7 +13,7 @@ import {
   Delete,
   NotAcceptableException,
 } from '@nestjs/common';
-import { CreateUserDto } from './create-users.dto';
+import { CreateUserDto } from './schemas/create-users.dto';
 
 @Controller('users')
 export class UserController {

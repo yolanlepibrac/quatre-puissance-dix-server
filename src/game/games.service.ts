@@ -1,7 +1,7 @@
 import { Model } from 'mongoose';
 import { Injectable, Inject } from '@nestjs/common';
-import { Game } from './games.interface';
-import { CreateGameDto } from './create-game.dto';
+import { Game } from './schemas/games.interface';
+import { CreateGameDto } from './schemas/create-game.dto';
 
 @Injectable()
 export class GamesService {

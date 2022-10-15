@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { GamesService } from './games.service';
 import { Request } from 'express';
-import { CreateGameDto } from './create-game.dto';
+import { CreateGameDto } from './schemas/create-game.dto';
 
 @Controller('games')
 export class GamesController {

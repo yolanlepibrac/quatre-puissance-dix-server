@@ -1,11 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
-import { User } from './users.interface';
-import { CreateUserDto } from './/create-users.dto';
-import { Game } from '../game/games.interface';
-import { CreateGameDto } from '../game/create-game.dto';
-import { GamesController } from '../game/games.controller';
+import { User } from './schemas/users.interface';
+import { CreateUserDto } from './schemas/create-users.dto';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -23,7 +19,7 @@ export class UserService {
 
   // add user when register
   async addUser(CreateUserDTO: CreateUserDto): Promise<User> {
-    let token = this.createToken(CreateUserDTO.email, CreateUserDTO.password);
+    const token = this.createToken(CreateUserDTO.email, CreateUserDTO.password);
     CreateUserDTO.password = token;
     console.log(CreateUserDTO.password);
     const newUser = await new this.userModel(CreateUserDTO);
@@ -31,9 +27,9 @@ export class UserService {
   }
 
   // get user when login
+
   async getUserByMail(email): Promise<User> {
-    const user = await this.userModel.findOne({ email: email }).exec();
-    return user;
+    return this.userModel.findOne({ email: email }).exec();
   }
 
   async getUserByMailAndVerify(email, password): Promise<User> {

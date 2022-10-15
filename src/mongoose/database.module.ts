@@ -1,8 +1,21 @@
 import { Module } from '@nestjs/common';
-import { databaseProviders } from './database.providers';
+import * as mongoose from 'mongoose';
+
 
 @Module({
-  providers: [...databaseProviders],
-  exports: [...databaseProviders],
+  providers:  [
+    {
+      provide: 'DATABASE_CONNECTION',
+      useFactory: (): Promise<typeof mongoose> =>
+        mongoose.connect(process.env.DATABASE_PATH),
+    },
+  ],
+  exports:  [
+    {
+      provide: 'DATABASE_CONNECTION',
+      useFactory: (): Promise<typeof mongoose> =>
+        mongoose.connect(process.env.DATABASE_PATH),
+    },
+  ],
 })
 export class DatabaseModule {}
